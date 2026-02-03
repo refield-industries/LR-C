@@ -9,4 +9,4 @@ First of all, it redirects all of the game requests to a local server. Second of
 ## Setup
 You can get a prebuilt DLL for your game version in [releases](https://git.xeondev.com/LR/C/releases). If you don't want to use prebuilt binaries, you can compile it with `Zig 0.16.0-dev.2368`, running `zig build` will do the trick.
 
-Next, you have to go to the game's directory and find the `gfsdk.dll` file. You have to RENAME it to `gfsdk_original.dll`. Afterwards, you should place `gfsdk.dll` that you've got from this repository in the game's directory. That should be it, just run Endfield.exe. If a console with an ASCII art spawns, it works.
+Next, you have to go to the game's directory and replace the `gfsdk.dll` file with the one you've got from this repository. That should be it, just run Endfield.exe. If a console with an ASCII art spawns, it works.

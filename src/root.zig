@@ -1,7 +1,10 @@
 const std = @import("std");
 const interceptor = @import("interceptor.zig");
 const Il2cpp = @import("Il2cpp.zig");
-const proxy_exports = @import("proxy_exports.zig");
+
+comptime {
+    _ = @import("proxy_exports.zig");
+}
 
 const windows = std.os.windows;
 const unicode = std.unicode;
@@ -157,10 +160,6 @@ const WebRequestPatch = struct {
 
 pub export fn DllMain(_: windows.HINSTANCE, reason: windows.DWORD, _: windows.LPVOID) callconv(.winapi) windows.BOOL {
     if (reason == DLL_PROCESS_ATTACH) {
-        if (windows.kernel32.LoadLibraryW(unicode.utf8ToUtf16LeStringLiteral("gfsdk_original.dll"))) |lib| {
-            proxy_exports.link(lib);
-        }
-
         const thread = std.Thread.spawn(.{}, onAttach, .{}) catch unreachable;
         thread.detach();
     }
