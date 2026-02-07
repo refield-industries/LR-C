@@ -1,7 +1,7 @@
 #!/bin/sh
 # DEPENDS: curl, tar, xz, realpath
 
-ZIG_VERSION="0.16.0-dev.2368+380ea6fb5"
+ZIG_VERSION="0.16.0-dev.2510+bcb5218a2"
 ZIG_PLATFORM="x86_64-linux"
 ZIG_DIST="zig-${ZIG_PLATFORM}-${ZIG_VERSION}"
 ZIG_DIR="./.direnv/${ZIG_DIST}/"
