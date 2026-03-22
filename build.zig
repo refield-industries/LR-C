@@ -6,15 +6,28 @@ pub fn build(b: *std.Build) void {
         .{ .default_target = .{ .os_tag = .windows } },
     );
 
-    const dll = b.addLibrary(.{
-        .name = "gfsdk",
-        .linkage = .dynamic,
-        .root_module = b.createModule(.{
-            .root_source_file = b.path("src/root.zig"),
+    const versions = [_]struct { []const u8, []const u8 }{
+        .{ "gfsdk", "src/proxy_exports.zig" },
+        .{ "hgsdk", "src/proxy_exports_cn.zig" }
+    };
+
+    inline for (versions) |ver| {
+        const dll = b.addLibrary(.{
+            .name = ver[0],
+            .linkage = .dynamic,
+            .root_module = b.createModule(.{
+                .root_source_file = b.path("src/root.zig"),
+                .target = target,
+                .optimize = optimize,
+            }),
+        });
+
+        dll.root_module.addImport("proxy_exports.zig", b.createModule(.{
+            .root_source_file = b.path(ver[1]),
             .target = target,
             .optimize = optimize,
-        }),
-    });
+        }));
 
-    b.installArtifact(dll);
+        b.installArtifact(dll);
+    }
 }
