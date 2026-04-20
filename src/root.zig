@@ -102,11 +102,11 @@ fn onAttach() void {
 
 // Patch out the SRSA (Sloppy RSA)
 const SloppyRSAPatch = struct {
-    const write_srsa_check: usize = 0xA514E41;
-    const read_srsa_check: usize = 0xA51559D;
+    const write_srsa_check: usize = 0x24D2E49;
+    const read_srsa_check: usize = 0x24CA999;
 
     pub fn init() void {
-        interceptor.write(base + write_srsa_check, &.{ 0x90, 0x90 });
+        interceptor.write(base + write_srsa_check, &.{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 });
         interceptor.write(base + read_srsa_check, &.{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 });
     }
 };
